@@ -10,13 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "people")
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Person {
@@ -31,5 +29,11 @@ public class Person {
 
     @OneToMany(mappedBy = "person")
     private List<Address> addresses = new ArrayList<>();
+
+    public Person(Long id, String name, LocalDate birthDate) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+    }    
 
 }
