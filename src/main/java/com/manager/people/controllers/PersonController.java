@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.manager.people.dtos.PersonDTO;
 import com.manager.people.models.Person;
 import com.manager.people.services.PersonService;
 
@@ -17,8 +18,8 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping("/{id}")
-    public Person findByID(@PathVariable Long id) {
-        return personService.findByID(id);
+    public PersonDTO findByID(@PathVariable Long id) {
+        return personService.findByIdWithOutAddress(id);
     }
 
 }
