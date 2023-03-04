@@ -1,5 +1,8 @@
 package com.manager.people.services;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,13 @@ public class PersonService {
     public PersonDTO findByIdWithOutAddress(Long id) {
         Person person = this.findByID(id);
         return mapper.map(person, PersonDTO.class);
+    }
+
+    public Person createPerson(PersonDTO personDTO) {
+        Person person = mapper.map(personDTO, Person.class);
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        person.setBirthDate(LocalDate.parse(personDTO.getBirthDate(), fmt));
+        return personRepository.save(person);
     }
 
 }
