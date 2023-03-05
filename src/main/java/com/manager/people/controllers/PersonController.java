@@ -1,6 +1,7 @@
 package com.manager.people.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,11 @@ public class PersonController {
     @GetMapping("/{id}")
     public PersonDTO findByID(@PathVariable Long id) {
         return personService.findByIdWithOutAddress(id);
+    }
+
+    @GetMapping
+    public List<PersonDTO> findAll() {
+        return personService.findAllPerson();
     }
 
     @PostMapping("/create")

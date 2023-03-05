@@ -2,6 +2,7 @@ package com.manager.people.services;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,12 @@ public class PersonService {
         person.setBirthDate(LocalDate.parse(personDTO.getBirthDate(), fmt));
         return personRepository.save(person);
     }
+
+    public List<PersonDTO> findAllPerson() {
+        List<Person> people = personRepository.findAll();
+        List<PersonDTO> personDTOs = people.stream().map(person -> mapper.map(person, PersonDTO.class)).toList();
+
+        return personDTOs;
+    }   
 
 }
