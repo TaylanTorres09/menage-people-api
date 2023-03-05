@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.manager.people.dtos.PersonDTO;
+import com.manager.people.models.Address;
 import com.manager.people.models.Person;
 import com.manager.people.services.PersonService;
 
@@ -44,6 +45,11 @@ public class PersonController {
 
         //return uri in headers
         return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping("/address/{personId}")
+    public List<Address> addressPerson(@PathVariable(name = "personId") Long personId) {
+        return personService.addressPerson(personId);
     }
 
 }

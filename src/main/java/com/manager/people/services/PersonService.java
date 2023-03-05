@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.manager.people.dtos.PersonDTO;
+import com.manager.people.models.Address;
 import com.manager.people.models.Person;
 import com.manager.people.repositories.PersonRepository;
 import com.manager.people.services.exceptions.ObjectNotFound;
@@ -43,6 +44,11 @@ public class PersonService {
         List<PersonDTO> personDTOs = people.stream().map(person -> mapper.map(person, PersonDTO.class)).toList();
 
         return personDTOs;
-    }   
+    }
+    
+    public List<Address> addressPerson(Long id) {
+        Person person = this.findByID(id);
+        return person.getAddresses();
+    }
 
 }
