@@ -26,7 +26,7 @@ public class AddressDTO {
     @Size(min = 1, max = 30, message = "Length between 5 and 20 characters")
     private String city;
     
-    @NotBlank(message = "Required if principal address")
+    @NotNull(message = "Required if principal address")
     private Boolean principalAddress;
 
     @NotNull(message = "Identify person")
