@@ -36,6 +36,10 @@ public class PersonService {
         Person person = mapper.map(personDTO, Person.class);
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         person.setBirthDate(LocalDate.parse(personDTO.getBirthDate(), fmt));
+        return savePerson(person);
+    }
+
+    public Person savePerson(Person person) {
         return personRepository.save(person);
     }
 
