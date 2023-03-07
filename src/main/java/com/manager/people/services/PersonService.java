@@ -9,7 +9,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.manager.people.dtos.AddressDTO;
 import com.manager.people.dtos.PersonDTO;
 import com.manager.people.models.Address;
 import com.manager.people.models.Person;
