@@ -5,9 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.manager.people.dtos.AddressDTO;
 import com.manager.people.dtos.PersonDTO;
 import com.manager.people.models.Address;
 import com.manager.people.models.Person;
@@ -53,6 +55,14 @@ public class PersonService {
     public List<Address> addressPerson(Long id) {
         Person person = this.findByID(id);
         return person.getAddresses();
+    }
+
+    public Person updatPerson(PersonDTO personDTO) {
+        Person person = findByID(personDTO.getId());
+        
+        BeanUtils.copyProperties(personDTO, person);
+
+        return person;
     }
 
 }

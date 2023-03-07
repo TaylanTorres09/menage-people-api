@@ -70,5 +70,15 @@ public class PersonController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Person> updatePerson(@Valid @RequestBody PersonDTO personDTO) {
+        Person person = personService.updatPerson(personDTO);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(String.format("/person/%d", person.getId())).buildAndExpand(person.getId()).toUri();
+
+        //return uri in headers
+        return ResponseEntity.noContent().location(uri).build();
+    }
+
 
 }
