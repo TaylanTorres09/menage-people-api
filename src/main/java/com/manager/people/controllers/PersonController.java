@@ -64,10 +64,10 @@ public class PersonController {
     public ResponseEntity<List<Address>> addAddressPerson(@Valid @RequestBody AddressDTO addressDTO) {
         addressService.addAddressToPerson(addressDTO);
 
-        ServletUriComponentsBuilder.fromCurrentContextPath().path(String.format("/person/address/%d", addressDTO.getPersonId())).buildAndExpand(addressDTO.getPersonId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(String.format("/person/address/%d", addressDTO.getPersonId())).buildAndExpand(addressDTO.getPersonId()).toUri();
 
         //return uri in headers
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().location(uri).build();
     }
 
     @PutMapping("/update")
