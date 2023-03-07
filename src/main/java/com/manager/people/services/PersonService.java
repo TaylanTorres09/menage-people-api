@@ -65,4 +65,11 @@ public class PersonService {
         return person;
     }
 
+    public Address principalAddress(Long id) {
+        List<Address> addresses = addressPerson(id);
+        Address address = addresses.stream().filter(adr -> adr.getPrincipalAddress() == true).toList().get(0);
+
+        return address;
+    }
+
 }

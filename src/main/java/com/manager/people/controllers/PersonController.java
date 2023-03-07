@@ -80,5 +80,10 @@ public class PersonController {
         return ResponseEntity.noContent().location(uri).build();
     }
 
+    @GetMapping("address/principal/{personId}")
+    public Address principalAddress(@PathVariable(name = "personId") Long personId) {
+        return personService.principalAddress(personId);
+    }
+
 
 }
