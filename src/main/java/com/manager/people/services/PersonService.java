@@ -66,9 +66,13 @@ public class PersonService {
 
     public Address principalAddress(Long id) {
         List<Address> addresses = addressPerson(id);
-        Address address = addresses.stream().filter(adr -> adr.getPrincipalAddress() == true).toList().get(0);
+        if (!addresses.isEmpty()) {
+            List<Address> addressesFilter = addresses.stream().filter(adr -> adr.getPrincipalAddress() == true).toList();
 
-        return address;
+            return addressesFilter.isEmpty() ? null : addressesFilter.get(0);
+        }
+
+        return null;
     }
 
 }
