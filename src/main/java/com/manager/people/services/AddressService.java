@@ -30,6 +30,9 @@ public class AddressService {
         Address address = mapper.map(addressDTO, Address.class);
         address.setId(null);
         address.setPerson(person);
+
+        if(personService.principalAddress(person.getId()) != null)
+            address.setPrincipalAddress(false);
         
         addressRepository.save(address);
 
