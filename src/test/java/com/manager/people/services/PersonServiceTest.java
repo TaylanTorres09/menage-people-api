@@ -92,6 +92,18 @@ public class PersonServiceTest {
         assertEquals(birthDate, response.getBirthDate());
     }
 
+    @Test
+    void whenFindByIDPersonDTOThenThrowObjectNotFound() {
+        when(personRepository.findById(ID)).thenThrow(new ObjectNotFound("Person not found"));
+
+        try {
+            personService.findByIdWithOutAddress(ID);
+        } catch (Exception e) {
+            assertEquals(ObjectNotFound.class, e.getClass());
+            assertEquals("Person not found", e.getMessage());
+        }
+    }
+
     private void startPerson() {
         person = new Person(ID, name, LocalDate.parse(birthDate, fmt));
         personDTO = new PersonDTO(ID, name, birthDate);
