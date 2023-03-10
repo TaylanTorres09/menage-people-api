@@ -2,7 +2,9 @@ package com.manager.people.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -40,6 +42,7 @@ public class PersonServiceTest {
 
     private Person person = new Person();
     private PersonDTO personDTO = new PersonDTO();
+    
     private Optional<Person> optionalPerson;
 
     @BeforeEach
@@ -73,6 +76,20 @@ public class PersonServiceTest {
             assertEquals(ObjectNotFound.class, e.getClass());
             assertEquals("Person not found", e.getMessage());
         }
+    }
+
+    @Test
+    void whenFindByIDThenReturnPersonDTO() {
+        when(personRepository.findById(anyLong())).thenReturn(optionalPerson);
+        when(mapper.map(any(), any())).thenReturn(personDTO);
+
+        PersonDTO response = personService.findByIdWithOutAddress(ID);
+
+        assertNotNull(response);
+        assertEquals(PersonDTO.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(name, response.getName());
+        assertEquals(birthDate, response.getBirthDate());
     }
 
     private void startPerson() {
