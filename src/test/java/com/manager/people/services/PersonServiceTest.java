@@ -19,6 +19,7 @@ import org.modelmapper.ModelMapper;
 import com.manager.people.dtos.PersonDTO;
 import com.manager.people.models.Person;
 import com.manager.people.repositories.PersonRepository;
+import com.manager.people.services.exceptions.ObjectNotFound;
 
 public class PersonServiceTest {
 
@@ -60,6 +61,18 @@ public class PersonServiceTest {
         assertEquals(name, response.getName());
         assertEquals(LocalDate.parse(birthDate, fmt), response.getBirthDate());
 
+    }
+
+    @Test
+    void whenFindByIDThenReturnAnObjectNotFoundException() {
+        when(personRepository.findById(anyLong())).thenThrow(new ObjectNotFound("Person not found"));
+
+        try {
+            personService.findByID(ID);
+        } catch (Exception e) {
+            assertEquals(ObjectNotFound.class, e.getClass());
+            assertEquals("Person not found", e.getMessage());
+        }
     }
 
     private void startPerson() {
