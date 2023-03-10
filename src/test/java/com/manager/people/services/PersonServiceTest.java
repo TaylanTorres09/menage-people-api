@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -102,6 +103,21 @@ public class PersonServiceTest {
             assertEquals(ObjectNotFound.class, e.getClass());
             assertEquals("Person not found", e.getMessage());
         }
+    }
+
+    @Test
+    void whenCreateThenReturnPerson() {
+        when(personRepository.save(any())).thenReturn(person);
+
+        Person response = personService.createPerson(personDTO);
+
+        assertNotNull(response);
+        assertEquals(Person.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(name, response.getName());
+        assertEquals(LocalDate.parse(birthDate, fmt), response.getBirthDate());
+        assertEquals(new ArrayList<>(), response.getAddresses());
+
     }
 
     private void startPerson() {
