@@ -2,6 +2,7 @@ package com.manager.people.services;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -34,9 +35,8 @@ public class PersonService {
     }
 
     public Person createPerson(PersonDTO personDTO) {
-        Person person = mapper.map(personDTO, Person.class);
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        person.setBirthDate(LocalDate.parse(personDTO.getBirthDate(), fmt));
+        Person person = new Person(personDTO.getId(), personDTO.getName(), LocalDate.parse(personDTO.getBirthDate(), fmt));
         return savePerson(person);
     }
 
