@@ -120,6 +120,20 @@ public class PersonServiceTest {
 
     }
 
+    @Test
+    void whenSaveThenReturnPerson() {
+        when(personRepository.save(any())).thenReturn(person);
+
+        Person response = personService.savePerson(person);
+
+        assertNotNull(response);
+        assertEquals(Person.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(name, response.getName());
+        assertEquals(LocalDate.parse(birthDate, fmt), response.getBirthDate());
+        assertEquals(new ArrayList<>(), response.getAddresses());
+    }
+
     private void startPerson() {
         person = new Person(ID, name, LocalDate.parse(birthDate, fmt));
         personDTO = new PersonDTO(ID, name, birthDate);
