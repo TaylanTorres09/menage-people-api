@@ -55,12 +55,14 @@ public class PersonService {
         return person.getAddresses();
     }
 
-    public Person updatPerson(PersonDTO personDTO) {
+    public Person updatePerson(PersonDTO personDTO) {
         Person person = findByID(personDTO.getId());
         
-        BeanUtils.copyProperties(personDTO, person);
+        person.setName(personDTO.getName());
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        person.setBirthDate(LocalDate.parse(personDTO.getBirthDate(), fmt));
 
-        return person;
+        return savePerson(person);
     }
 
     public Address principalAddress(Long id) {

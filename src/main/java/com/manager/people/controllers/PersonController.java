@@ -71,7 +71,7 @@ public class PersonController {
 
     @PutMapping("/update")
     public ResponseEntity<Person> updatePerson(@Valid @RequestBody PersonDTO personDTO) {
-        Person person = personService.updatPerson(personDTO);
+        Person person = personService.updatePerson(personDTO);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(String.format("/person/%d", person.getId())).buildAndExpand(person.getId()).toUri();
 
