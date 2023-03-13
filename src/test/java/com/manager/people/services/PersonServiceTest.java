@@ -183,6 +183,20 @@ public class PersonServiceTest {
         assertEquals(person, address.getPerson());
     }
 
+    @Test
+    void whenUpdateThenReturnPerson() {
+        when(personRepository.findById(anyLong())).thenReturn(optionalPerson);
+        when(personRepository.save(any())).thenReturn(person);
+
+        Person response = personService.updatePerson(personDTO);
+
+        assertNotNull(response);
+        assertEquals(Person.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(name, response.getName());
+        assertEquals(LocalDate.parse(birthDate, fmt), response.getBirthDate());
+    }
+
     private void startPerson() {
         person = new Person(ID, name, LocalDate.parse(birthDate, fmt));
         address = new Address(ID, street, cep, numberAddress, city, principalAddress, person);
