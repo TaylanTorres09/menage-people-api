@@ -3,9 +3,14 @@ package com.manager.people.controllers;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.manager.people.dtos.PersonDTO;
 import com.manager.people.models.Address;
@@ -39,11 +44,19 @@ public class PersonControllerTest {
     private PersonDTO personDTO = new PersonDTO();
     private Address address = new Address();
 
+    @BeforeEach
+    void setUp() {
+        MockHttpServletRequest mockRequest = new MockHttpServletRequest();
+        ServletRequestAttributes attributes = new ServletRequestAttributes(mockRequest);
+        RequestContextHolder.setRequestAttributes(attributes);
+        MockitoAnnotations.openMocks(this);
+        start();
+    }
+
     private void start() {
         person = new Person(ID, name, LocalDate.parse(birthDate, fmt));
         personDTO = new PersonDTO(ID, name, birthDate);
         address = new Address(ID, street, cep, numberAddress, city, principalAddress, person);
     }
-
 
 }
