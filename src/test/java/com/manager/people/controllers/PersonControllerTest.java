@@ -3,6 +3,7 @@ package com.manager.people.controllers;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -51,6 +52,11 @@ public class PersonControllerTest {
         RequestContextHolder.setRequestAttributes(attributes);
         MockitoAnnotations.openMocks(this);
         start();
+    }
+
+    @After(value = "")
+    void teardown() {
+        RequestContextHolder.resetRequestAttributes();
     }
 
     private void start() {
