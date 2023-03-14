@@ -1,0 +1,49 @@
+package com.manager.people.controllers;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import com.manager.people.dtos.PersonDTO;
+import com.manager.people.models.Address;
+import com.manager.people.models.Person;
+import com.manager.people.services.AddressService;
+import com.manager.people.services.PersonService;
+
+public class PersonControllerTest {
+
+    private static final Long ID = Long.valueOf(1);
+    private static final String name = "Ostrogildo";
+    private static final String birthDate = "09/01/1998";
+    private static final String street = "Smiljan";
+    private static final String cep = "60440-134";
+    private static final Integer numberAddress = 5;
+    private static final String city = "condado de Lika";
+    private static final Boolean principalAddress = true;
+
+    private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    
+    @InjectMocks
+    private PersonController personController;
+
+    @Mock
+    private PersonService personService;
+
+    @Mock
+    private AddressService addressService;
+
+    private Person person = new Person();
+    private PersonDTO personDTO = new PersonDTO();
+    private Address address = new Address();
+
+    private void start() {
+        person = new Person(ID, name, LocalDate.parse(birthDate, fmt));
+        personDTO = new PersonDTO(ID, name, birthDate);
+        address = new Address(ID, street, cep, numberAddress, city, principalAddress, person);
+    }
+
+
+}
