@@ -141,26 +141,6 @@ public class PersonServiceTest {
         assertEquals(new ArrayList<>(), response.getAddresses());
     }
 
-    // @Test
-    // void whenFindAllPersonThenReturnAListOfPeople() {
-    //     when(personRepository.findAll()
-    //                         .stream().map(person -> mapper.map(person, PersonDTO.class))
-    //                         .toList()).thenReturn(List.of(personDTO));
-        
-    //     List<PersonDTO> response = personService.findAllPerson();
-
-    //     assertNotNull(response);
-    //     assertEquals(1, response.size());
-
-    //     PersonDTO person = response.get(0);
-    //     assertEquals(PersonDTO.class, person.getClass());
-
-    //     assertEquals(ID, person.getId());
-    //     assertEquals(name, person.getName());
-    //     assertEquals(birthDate, person.getBirthDate());
-
-    // }
-
     @Test
     void whenFindByIDPersonThenReturnListAddress() {
         optionalPerson.get().getAddresses().add(address);
