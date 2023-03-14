@@ -1,5 +1,10 @@
 package com.manager.people.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -57,6 +62,19 @@ public class PersonControllerTest {
     @After(value = "")
     void teardown() {
         RequestContextHolder.resetRequestAttributes();
+    }
+
+    @Test
+    void whenFindByIDThenReturnStatusOK() {
+        when(personService.findByIdWithOutAddress(anyLong())).thenReturn(personDTO);
+
+        PersonDTO response = personController.findByID(ID);
+
+        assertNotNull(response);
+        assertEquals(PersonDTO.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(name, response.getName());
+        assertEquals(birthDate, response.getBirthDate());
     }
 
     private void start() {
