@@ -108,6 +108,27 @@ public class PersonControllerTest {
         assertNotNull(response.getHeaders().get("Location"));
     }
 
+    @Test
+    void whenListAddressOfPersonThenReturnListOfAddresses() {
+        when(personService.addressPerson(anyLong())).thenReturn(List.of(address));
+
+        List<Address> response = personController.addressPerson(ID);
+
+        assertNotNull(response);
+        
+        Address address1 = response.get(0);
+
+        assertEquals(Address.class, address1.getClass());
+        assertEquals(ID, address1.getId());
+        assertEquals(street, address1.getStreet());
+        assertEquals(cep, address1.getCep());
+        assertEquals(numberAddress, address1.getNumberAddress());
+        assertEquals(city, address1.getCity());
+        assertEquals(principalAddress, address1.getPrincipalAddress());
+        assertEquals(person, address1.getPerson());
+
+    }
+
     private void start() {
         person = new Person(ID, name, LocalDate.parse(birthDate, fmt));
         personDTO = new PersonDTO(ID, name, birthDate);
