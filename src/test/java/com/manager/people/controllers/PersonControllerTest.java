@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.BeforeEach;
@@ -75,6 +77,21 @@ public class PersonControllerTest {
         assertEquals(ID, response.getId());
         assertEquals(name, response.getName());
         assertEquals(birthDate, response.getBirthDate());
+    }
+
+    @Test
+    void whenFindAllThenReturnOK() {
+        when(personService.findAllPerson()).thenReturn(List.of(personDTO));
+
+        List<PersonDTO> response = personController.findAll();
+
+        assertNotNull(response);
+
+        PersonDTO person1 = response.get(0);
+        assertEquals(PersonDTO.class, person1.getClass());
+        assertEquals(ID, person1.getId());
+        assertEquals(name, person1.getName());
+        assertEquals(birthDate, person1.getBirthDate());
     }
 
     private void start() {
