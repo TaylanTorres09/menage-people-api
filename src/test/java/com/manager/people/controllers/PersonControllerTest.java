@@ -129,6 +129,19 @@ public class PersonControllerTest {
 
     }
 
+    @Test
+    void whenUpdateThenReturnSuccess() {
+        when(personService.updatePerson(any())).thenReturn(person);
+
+        ResponseEntity<Person> response = personController.updatePerson(personDTO);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertEquals(ResponseEntity.class, response.getClass());
+
+        assertNotNull(response.getHeaders().get("Location"));
+    }
+
     private void start() {
         person = new Person(ID, name, LocalDate.parse(birthDate, fmt));
         personDTO = new PersonDTO(ID, name, birthDate);
