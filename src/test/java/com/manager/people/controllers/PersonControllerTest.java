@@ -2,6 +2,7 @@ package com.manager.people.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -92,6 +95,17 @@ public class PersonControllerTest {
         assertEquals(ID, person1.getId());
         assertEquals(name, person1.getName());
         assertEquals(birthDate, person1.getBirthDate());
+    }
+
+    @Test
+    void whenCreateThenReturnStatusCreated() {
+        when(personService.createPerson(any())).thenReturn(person);
+
+        ResponseEntity<Person> response = personController.createPerson(personDTO);
+
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertNotNull(response.getHeaders().get("Location"));
     }
 
     private void start() {
