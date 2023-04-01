@@ -33,7 +33,7 @@ Este projeto foi feita na participação da avaliação técnica da empresa [Att
 
 - [GET] Listar endereço principal de uma pessoa: {url}/person/address/principal/{personId}
 
-- [PUT] Adicionar mais um endereço a uma pessoa: {url}/person/address/{personId}
+- [POST] Adicionar mais um endereço a uma pessoa: {url}/address/create
 ``` Json Body
 {
     "street": "type string",
