@@ -16,7 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.manager.people.dtos.PersonDTO;
 import com.manager.people.models.Address;
 import com.manager.people.models.Person;
-import com.manager.people.services.AddressService;
 import com.manager.people.services.PersonService;
 
 import jakarta.validation.Valid;
