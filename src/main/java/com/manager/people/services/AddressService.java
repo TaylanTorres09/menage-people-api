@@ -18,23 +18,24 @@ public class AddressService {
     @Autowired
     private PersonService personService;
 
-    @Autowired
-    private ModelMapper mapper;
-
     public Address addAddressToPerson(AddressDTO addressDTO) {
 
         Person person = personService.findByID(addressDTO.getPersonId());
 
-        Address address = mapper.map(addressDTO, Address.class);
-        address.setId(null);
+        Address address = new Address(null, addressDTO.getStreet(),
+                                        addressDTO.getCep(), 
+                                        addressDTO.getNumberAddress(), 
+                                        addressDTO.getCity(), 
+                                        addressDTO.getPrincipalAddress(), 
+                                        person
+        );
         address.setPerson(person);
 
         if(personService.principalAddress(person.getId()) != null)
             address.setPrincipalAddress(false);
         
-        addressRepository.save(address);
 
-        return address;
+        return addressRepository.save(address);
 
     }
 
