@@ -23,7 +23,7 @@ public class AddressService {
     @Autowired
     private ModelMapper mapper;
 
-    public List<Address> addAddressToPerson(AddressDTO addressDTO) {
+    public Address addAddressToPerson(AddressDTO addressDTO) {
 
         Person person = personService.findByID(addressDTO.getPersonId());
 
@@ -36,7 +36,7 @@ public class AddressService {
         
         addressRepository.save(address);
 
-        return person.getAddresses();
+        return address;
 
     }
 
