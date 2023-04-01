@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.manager.people.dtos.AddressDTO;
 import com.manager.people.dtos.PersonDTO;
 import com.manager.people.models.Address;
 import com.manager.people.models.Person;
@@ -30,9 +29,6 @@ public class PersonController {
     
     @Autowired
     private PersonService personService;
-
-    @Autowired
-    private AddressService addressService;
 
     @GetMapping("/{id}")
     public PersonDTO findByID(@PathVariable Long id) {
