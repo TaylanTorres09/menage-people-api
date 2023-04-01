@@ -59,16 +59,6 @@ public class PersonController {
         return personService.addressPerson(personId);
     }
 
-    @PutMapping("/address")
-    public ResponseEntity<List<Address>> addAddressPerson(@Valid @RequestBody AddressDTO addressDTO) {
-        addressService.addAddressToPerson(addressDTO);
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(String.format("/person/address/%d", addressDTO.getPersonId())).buildAndExpand(addressDTO.getPersonId()).toUri();
-
-        //return uri in headers
-        return ResponseEntity.noContent().location(uri).build();
-    }
-
     @PutMapping("/update")
     public ResponseEntity<Person> updatePerson(@Valid @RequestBody PersonDTO personDTO) {
         Person person = personService.updatePerson(personDTO);
